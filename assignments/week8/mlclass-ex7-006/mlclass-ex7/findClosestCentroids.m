@@ -20,12 +20,27 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+% By default each point has inf distance from the centroids
 
-
-
-
-
-
+m = size(X,1);
+for i=1:m
+	% disp('Processing point: '), disp(i);
+	% Find the distance from each centroid and store the min 
+	min_dist = inf;
+	min_dist_centroid = 0;
+	for j=1:K
+		d = norm(X(i, :) - centroids(j, :)) ^ 2;
+		% disp('Distance from centroid: '), disp(j), disp(' is '), disp(d);
+		if d < min_dist
+			min_dist = d;
+			min_dist_centroid = j;
+		end
+		% disp('Best centroid found: '), disp(min_dist_centroid);
+		% disp('')
+	end
+	% Assign point i to the centroid with min distance
+	idx(i) = min_dist_centroid;
+end
 
 % =============================================================
 
